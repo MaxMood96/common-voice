@@ -6,10 +6,6 @@
     width: 70%;
     z-index: 10;
 
-    @media (--xs-only) {
-        height: 90%;
-    }
-
     .header-text-container {
         margin-bottom: 80px;
 
@@ -75,6 +71,15 @@
 
             box-shadow: 0 2px 5px 0 var(--light-grey);
             overflow: scroll;
+        }
+
+        & label.for-input {
+            input[type='text'] {
+                &::placeholder {
+                    color: var(--black);
+                    opacity: 1; /* For Firefox */
+                }
+            }
         }
     }
 

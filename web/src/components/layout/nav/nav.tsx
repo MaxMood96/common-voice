@@ -1,25 +1,28 @@
-import { Localized } from '@fluent/react';
-import * as React from 'react';
-import { trackNav, getTrackClass } from '../../../services/tracker';
-import URLS from '../../../urls';
-import {
-  ContributableLocaleLock,
-  LocaleNavLink,
-  useLocale,
-} from '../../locale-helpers';
-import ContributeMenu from './contribute-menu';
+import { Localized } from '@fluent/react'
+import * as React from 'react'
 
-import './nav.css';
+import { trackNav, getTrackClass } from '../../../services/tracker'
+
+import { LocaleNavLink, useLocale } from '../../locale-helpers'
+import { menuItems } from './menu-items'
+import ContributeMenu from './contribute-menu'
+import { useAccount } from '../../../hooks/store-hooks'
+import { useOutsideClick } from '../../../hooks/use-outside-click'
+import { typedObjectKeys } from '../../../utility'
+
+import './nav.css'
 
 type NavProps = {
-  id?: string;
-  shouldExpandNavItems?: boolean;
-  isContributionPageActive?: boolean;
-  children?: React.ReactNode;
-};
+  id?: string
+  shouldExpandNavItems?: boolean
+  isContributionPageActive?: boolean
+  children?: React.ReactNode
+}
 
-const LocalizedNavLink = ({ id, to }: { id: string; to: string }) => {
-  const [locale] = useLocale();
+export type NavItem = 'speak' | 'listen' | 'write' | 'about' | 'download'
+
+export const LocalizedNavLink = ({ id, to }: { id: string; to: string }) => {
+  const [locale] = useLocale()
   return (
     <Localized id={id}>
       <LocaleNavLink
@@ -27,10 +30,11 @@ const LocalizedNavLink = ({ id, to }: { id: string; to: string }) => {
         to={to}
         exact
         onClick={() => trackNav(id, locale)}
+        id={id}
       />
     </Localized>
-  );
-};
+  )
+}
 
 const Nav: React.FC<NavProps> = ({
   children,
@@ -38,38 +42,55 @@ const Nav: React.FC<NavProps> = ({
   isContributionPageActive,
   ...props
 }) => {
-  const [showMenu, setShowMenu] = React.useState(false);
-  const [showMobileMenu, setShowMobileMenu] = React.useState(false);
+  const [activeNavItem, setActiveNavItem] = React.useState<NavItem | null>(null)
 
-  const toggleMobileMenuVisible = () => {
-    setShowMobileMenu(!showMobileMenu);
-  };
+  const account = useAccount()
+
+  const handleNavItemClick = React.useCallback((navItem: NavItem) => {
+    setActiveNavItem(prev => (prev === navItem ? null : navItem))
+  }, [])
+
+  const handleClickOutside = () => {
+    setActiveNavItem(null)
+  }
+
+  const ref = useOutsideClick(handleClickOutside)
+
+  const renderMenu = (menuItem: NavItem) => {
+    const menu = (
+      <ContributeMenu
+        key={menuItem}
+        showMenu={activeNavItem === menuItem}
+        setShowMenu={handleNavItemClick}
+        showMobileMenu={activeNavItem === menuItem}
+        isUserLoggedIn={Boolean(account)}
+        menuItems={menuItems[menuItem].items}
+        menuLabel={menuItem}
+        menuTooltip={menuItems[menuItem].menuTooltip}
+        menuAriaLabel={menuItems[menuItem].menuAriaLabel}
+      />
+    )
+
+    return menu
+  }
 
   return (
-    <nav {...props} className="nav-list">
+    <nav {...props} className="nav-list" aria-label="Main Navigation" ref={ref}>
       <div className="nav-links">
-        <ContributableLocaleLock>
-          <ContributeMenu
-            showMenu={showMenu}
-            setShowMenu={setShowMenu}
-            showMobileMenu={showMobileMenu}
-            toggleMobileMenuVisible={toggleMobileMenuVisible}
-            isContributionPageActive={isContributionPageActive}
-          />
-        </ContributableLocaleLock>
-        <span className="divider" />
         <div className={shouldExpandNavItems ? 'fade-in' : 'fade-out'}>
-          <>
-            <LocalizedNavLink id="datasets" to={URLS.DATASETS} />
-            <LocalizedNavLink id="languages" to={URLS.LANGUAGES} />
-            <LocalizedNavLink id="partner" to={URLS.PARTNER} />
-            <LocalizedNavLink id="about" to={URLS.ABOUT} />
-          </>
+          {typedObjectKeys(menuItems).map(key => {
+            return (
+              <React.Fragment key={key}>
+                {renderMenu(key)}
+                <div className="divider" />
+              </React.Fragment>
+            )
+          })}
         </div>
       </div>
       {children}
     </nav>
-  );
-};
+  )
+}
 
-export default Nav;
+export default Nav

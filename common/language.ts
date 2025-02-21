@@ -16,6 +16,7 @@ export type Language = {
   id: number;
   name: string;
   sentenceCount: SentenceCount;
+  target_sentence_count?: number;
   is_contributable?: boolean;
   is_translated?: boolean;
   native_name: string;
@@ -25,9 +26,14 @@ export type Language = {
 // single variant object
 export type Variant = {
   id: number;
+  locale: string;
   name: string;
-  token: string;
+  tag: string;
 };
+
+export type UserVariant = Variant & {
+  is_preferred_option: boolean;
+}
 
 /*
   an object storing all
@@ -35,6 +41,6 @@ export type Variant = {
 */
 export type UserLanguage = {
   locale: string;
-  variant?: Variant;
+  variant?: UserVariant;
   accents?: Accent[];
 };
