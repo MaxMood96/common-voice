@@ -58,18 +58,29 @@ body,
     padding: 0;
     margin: 0;
     width: 100%;
-    height: 100vh;
     max-height: 100%;
+}
+
+#main.write,
+#main.review {
+    @media (--md-down) {
+        height: auto;
+    }
 }
 
 #main {
     &.nav-modal-active {
         @media (--lg-down) {
             overflow-y: hidden;
+            height: 100vh;
 
             & .header {
                 display: flex;
             }
+        }
+
+        .secondary-nav {
+            display: none;
         }
     }
 }
@@ -150,14 +161,37 @@ button {
     position: relative;
     background-color: var(--white);
 
+    display: flex;
+    flex-direction: column;
+
     &.speak,
-    &.listen {
-        overflow: hidden;
+    &.listen,
+    &.write,
+    &.review {
+        max-height: calc(100dvh - 2px);
+        height: 100vh;
 
         & header {
             @media (--lg-down) {
                 display: none;
             }
+        }
+
+        #content {
+            min-height: 70%;
+        }
+    }
+
+    &.write,
+    &.review {
+        @media (--md-down) {
+            overflow: auto;
+        }
+    }
+
+    &.datasets {
+        .menu-list {
+            box-shadow: none;
         }
     }
 }
@@ -185,6 +219,19 @@ button {
     flex-grow: 1;
     width: 100%;
     min-height: 100%;
+
+    &.write,
+    &.review {
+        @media (--sm-down) {
+            min-height: auto;
+        }
+    }
+
+    &.review {
+        & .spinner--floating {
+            position: fixed;
+        }
+    }
 }
 
 .Logo {
@@ -278,7 +325,7 @@ a.small,
     & .tippy-tooltip {
         border-radius: 20px;
         padding: 9px 25px;
-        max-width: 140px;
+        max-width: 200px;
         line-height: 1.5;
         font-size: var(--font-size-xs);
         font-style: italic;

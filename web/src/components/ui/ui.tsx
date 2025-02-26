@@ -1,4 +1,8 @@
-import { Localized } from '@fluent/react';
+import {
+  Localized,
+  WithLocalizationProps,
+  withLocalization,
+} from '@fluent/react';
 import * as React from 'react';
 import { HTMLProps, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -100,6 +104,7 @@ const LabeledFormControl = React.forwardRef((allProps: any, ref) => {
     required,
     disabled,
     isLabelVisuallyHidden,
+    dataTestId,
     ...props
   } = allProps;
 
@@ -109,6 +114,7 @@ const LabeledFormControl = React.forwardRef((allProps: any, ref) => {
       aria-required={required}
       required={required}
       disabled={disabled}
+      data-testid={dataTestId}
       {...props}
     />
   );
@@ -141,15 +147,17 @@ const LabeledFormControl = React.forwardRef((allProps: any, ref) => {
 LabeledFormControl.displayName = 'LabeledFormControl';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const LabeledInput = React.forwardRef(({ type, ...props }: any, ref) => (
-  <LabeledFormControl
-    component="input"
-    ref={ref}
-    type={type || 'text'}
-    name={type}
-    {...props}
-  />
-));
+export const LabeledInput = React.forwardRef(
+  ({ type, component, ...props }: any, ref) => (
+    <LabeledFormControl
+      component={component || 'input'}
+      ref={ref}
+      type={type || 'text'}
+      name={type}
+      {...props}
+    />
+  )
+);
 LabeledInput.displayName = 'LabeledInput';
 
 export const LabeledSelect = (props: any) => (
@@ -252,4 +260,43 @@ export const Toggle = ({
       <div />
     </Localized>
   </div>
+);
+
+export const Options = withLocalization(
+  ({
+    children,
+    getString,
+  }: {
+    children: { [key: string]: string };
+  } & WithLocalizationProps) => (
+    <>
+      {Object.entries(children).map(([key, value]) => (
+        <option key={key} value={key}>
+          {getString(key, null, value)}
+        </option>
+      ))}
+    </>
+  )
+);
+
+export const Radio = ({
+  children,
+  onChecked,
+  labelClass,
+  contentClass,
+  ...props
+}: {
+  children: React.ReactNode;
+  onChecked?: () => any;
+  labelClass?: string;
+  contentClass?: string;
+} & React.HTMLProps<HTMLInputElement>) => (
+  <label className={labelClass}>
+    <input
+      type="radio"
+      onChange={event => event.target.checked && onChecked && onChecked()}
+      {...props}
+    />
+    <div className={contentClass}>{children}</div>
+  </label>
 );
