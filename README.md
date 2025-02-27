@@ -4,10 +4,10 @@ This is the web app for [Mozilla Common Voice](https://commonvoice.mozilla.org),
 
 ## Upcoming releases
 
-| Type             | Expected date  | More info      |
+| Type             | Release Cadence  | More info      |
 | :--------------- |:---------------|:---------------|
-| Platform code & sentences | Dec 15, 2021 | [Release notes](https://github.com/common-voice/common-voice/releases) |
-| Dataset          | Jan 2022 | [Dataset metadata](https://github.com/common-voice/cv-dataset/) |
+| Platform code & sentences | Monthly, or as needed | [Release notes](https://github.com/common-voice/common-voice/releases) |
+| Dataset          | Quarterly | [Dataset metadata](https://github.com/common-voice/cv-dataset/) |
 
 ## Quick links
 
@@ -67,6 +67,5 @@ The BiBTex is:
 }
 ```
 
-```
-
-```
+## Cross Browser Testing
+This project is tested with [Browserstack](https://email.browserstack.com/c/eJwkyrGSgyAQANCv0Q5nQQUsKK7Jb9ws7BKZoCSA40y-_orrH7nVr2RGdlLbWSsLVo2789pu2kgPwISB_AwbgJUWMEYdDIzJ6WVFBbNUKxr5K1kqDAa9UhyD3TZjaZ1aIn6lj4iVPxefXUQS70JXY2xdigPTOQufLxZ6IR8tea3Fs7_8d1iAD0x5ipXbTtxeUyjHmN3e-3uYfwb1GNTjvu_J13I3rq1j-DfVHSnsnDNfwwJH-aacMZbrJOypnFOpz78AAAD__4I2T84)
