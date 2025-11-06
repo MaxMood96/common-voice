@@ -323,9 +323,21 @@ code-switching-pronunciation-explanation-example-1 = Angličtina: /ˈkeɪ.bəl/
 code-switching-pronunciation-explanation-example-2 = Španělština: /ˈkable/
 # Tagging in a Single Token
 code-switching-single-token-header = Označování v jednom tokenu
+# Be Careful with Lookalikes
+code-switching-lookalikes-header = Dávejte si pozor na podobnosti
+code-switching-lookalikes-explanation = Některá slova mohou vypadat jako v jednom jazyce, ale jsou používána v jiném jazyce. Označení podle významu a způsobu použití, ne podle vzhledu. Příklady:
+code-switching-lookalikes-explanation-example-1 = „Footing“ kdysi ve španělštině znamenalo běh > označte ho jako španělštinu
+code-switching-lookalikes-explanation-example-2 = “No problemo” použité v angličtině > označte ho jako angličtina
+# When Not to Tag Words
+code-switching-not-tag-header = Kdy neoznačovat slova
+code-switching-not-tag-explanation = Některá slova by <bold>neměla být označena</bold> jazykovou značkou, i když se zdají být smíšená nebo přizpůsobená. Zde je uvedeno, jak s některými příklady zacházet:
+code-switching-not-tag-proper-names = <bold>Vlastní jména.</bold> Jména osob, míst a organizací by neměla být označována. Příklady:
 code-switching-not-tag-proper-names-example-1 = Lidé: Maria, John
 code-switching-not-tag-proper-names-example-2 = Místa: Los Angeles, Florida
 code-switching-not-tag-proper-names-example-3 = Značky/Organizace: Target, Burger King
+code-switching-not-tag-mixed-words = <bold>Smíšená nebo morfologicky adaptovaná slova.</bold> Neoznačujte slova, která se mísí s jazyky nebo mají přidané koncovky z jiného jazyka. Příklady:
+code-switching-not-tag-mixed-words-example = Pokud je kořen anglický, ale přípona je španělská: "parkear", "printearlo".
+code-switching-not-tag-interjections = <bold>Citoslovce.</bold> Citoslovce a výplňová slova, bez ohledu na jazyk, by měla zůstat <bold>neoznačené.</bold> Příklady:
 code-switching-not-tag-interjections-example-1 = „Eh“
 code-switching-not-tag-interjections-example-2 = „Noo“
 code-switching-not-tag-interjections-example-3 = „Hmm“
@@ -335,3 +347,5 @@ code-switching-not-tag-interjections-example-4 = „Ehm“
 
 reporting-content = Nahlašování obsahu
 reporting-content-subheader = Obecné pokyny
+reporting-content-explanation-1 = Obsah, který je urážlivý, škodlivý nebo jinak znepokojující, musíte označit. Nesmí také obsahovat žádné osobní údaje, jako jsou telefonní čísla nebo adresy. Bude z vašich zkušeností odstraněn, dokud jej tým Common Voice neprověří a neprovede další šetření.
+reporting-content-explanation-2 = Chcete-li nahlásit obsah, vyberte tlačítko "Nahlásit" a vyberte jednu nebo všechny možnosti: Urážlivý obsah, Jiný jazyk, Osobní údaje, Ostatní. Odtud uveďte v textové oblasti další podrobnosti o tom, proč obsah nahlašujete. Poté nahlášení odešlete klepnutím na tlačítko Nahlásit.
